@@ -87,3 +87,25 @@ function fightersTraining(fighters) {
 }
 
 fightersTraining(fightersWithWeapons);
+
+// Milestone 3 - Qualificazione:
+
+// escludiamo dal torneo chi, dopo l'allenamento non è riuscito a raggiungere una potenza di almeno 2000.
+
+// combattenti qualificati.
+const qualifiedFighters = fightersWithWeapons.filter(
+  (fighter) => fighter.trainedPower >= 2000
+);
+
+// combattenti non qualificati.
+const eliminatedFighters = fightersWithWeapons.filter(
+  (fighter) => fighter.trainedPower < 2000
+);
+
+console.log("\nCombattenti qualificati:");
+console.table(qualifiedFighters);
+
+if (eliminatedFighters.length > 0) {
+  console.log("\nCombattenti eliminati:");
+  console.table(eliminatedFighters);
+}
