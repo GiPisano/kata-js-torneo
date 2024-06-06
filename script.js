@@ -108,4 +108,61 @@ console.table(qualifiedFighters);
 if (eliminatedFighters.length > 0) {
   console.log("\nCombattenti eliminati:");
   console.table(eliminatedFighters);
+} else {
+  console.log("Nessun combattente è stato eliminato");
+}
+
+// Milestone 4 - Combattimento:
+
+// i combattimenti si svolgeranno tra un partecipante e il successivo dell'elenco,
+// assicurandosi che ognuno combatta una sola volta.
+
+// In ogni scontro vincerà il combattente con la potenza più alta.
+// In caso di parità vincerà chi "gioca in casa", ossia chi viene prima nell'elenco.
+
+// NB: bisogna assicurarsi che l'elenco contenga un numero pari di combattenti,
+// altrimenti l'ultimo non avrebbe un avversario. Potrebbe essere necessario aggiungere un
+// combattente "Robot" con potenza "4000" all'ultimo minuto.
+
+// mescolo l'array dei combattenti
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+const shuffledFighters = shuffleArray(qualifiedFighters);
+
+// Controllo per un numero pari di combattenti.
+if (shuffledFighters.length % 2 !== 0) {
+  // Se il numero di combattenti è dispari, aggiungiamo un combattente "Robot" con potenza 4000.
+  shuffledFighters.push({
+    name: "Robot",
+    trainedPower: 4000,
+  });
+}
+
+// Svolgimento dei combattimenti.
+console.log("\nSvolgimento dei combattimenti:");
+
+for (let i = 0; i < shuffledFighters.length; i += 2) {
+  const fighter1 = shuffledFighters[i];
+  const fighter2 = shuffledFighters[i + 1];
+
+  console.log(
+    `\nScontro tra ${fighter1.name} (${fighter1.trainedPower}) e ${fighter2.name} (${fighter2.trainedPower}):`
+  );
+
+  if (fighter1.trainedPower > fighter2.trainedPower) {
+    console.log(`${fighter1.name} vince lo scontro!`);
+  } else if (fighter1.trainedPower < fighter2.trainedPower) {
+    console.log(`${fighter2.name} vince lo scontro!`);
+  } else {
+    console.log(
+      "Lo scontro è in pareggio! Vince il giocatore di casa:",
+      fighter1.name
+    );
+  }
 }
