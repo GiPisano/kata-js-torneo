@@ -102,3 +102,40 @@ const weapons = [
 
 console.table(fighters);
 console.table(weapons);
+
+// Milestone 1 - Scelta dell’arma:
+
+// ogni combattente sceglierà casualmente un'arma dalla relativa lista.
+// Una volta scelta, un'arma non sarà più disponibile per i successivi combattenti.
+
+// funzione che restituisce un numero casuale.
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function assignWeapons(weapons, fighters) {
+  let availableWeapons = [...weapons]; //copia dell'array delle armi per tenere traccia di quelle disponibili.
+
+  fighters.forEach((fighter) => {
+    if (availableWeapons.length > 0) {
+      const randomIndex = getRandomInt(0, availableWeapons.length - 1);
+      const chosenWeapon = availableWeapons[randomIndex];
+
+      // assegno un'arma a ogni combattente e ne calcolo la sua potenza.
+      fighter.weapon = chosenWeapon.name;
+      fighter.totalPower = fighter.power + chosenWeapon.power;
+
+      // rimuovo l'arma selezionata dalla lista delle armi disponibili.
+      availableWeapons.splice(randomIndex, 1);
+    } else {
+      // se non ci sono piu armi disponibili il combattente rimane senza arma.
+      fighter.weapon = "None";
+      fighter.totalPower = fighter.power;
+    }
+  });
+  return fighters;
+}
+
+const fightersWithWeapons = assignWeapons(fighters, weapons);
+
+console.table(fightersWithWeapons);
