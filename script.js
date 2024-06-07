@@ -166,3 +166,15 @@ for (let i = 0; i < shuffledFighters.length; i += 2) {
     );
   }
 }
+
+// Milestone 5 - Premiazione:
+
+// tra tutti i vincitori degli scontri, saliranno sul podio i 3 combattenti
+// con la potenza più alta, in ordine decrescente.
+
+const winners = shuffledFighters
+  .sort((a, b) => b.trainedPower - a.trainedPower)
+  .slice(0, 3);
+
+console.log("\nPodio dei vincitori:");
+console.table(winners);
